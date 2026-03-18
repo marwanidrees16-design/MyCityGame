@@ -2,24 +2,25 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Marwan BMW Studio</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشروع مروان - BMW Studio</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #000; }
+        #ui {
+            position: absolute; top: 20px; width: 100%;
+            text-align: center; color: #00ffff;
+            font-family: Arial, sans-serif; pointer-events: none;
+        }
+    </style>
 </head>
 <body>
     <div id="ui">
-        <h1>مشروع مروان 🏎️</h1>
-        <p>استخدم إصبعك لتحريك الكاميرا</p>
+        <h1>مشروع مروان 🚗</h1>
+        <p>استخدم الأسهم أو المس الشاشة للتحريك</p>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-            }
-        }
-    </script>
-    <script type="module" src="main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
