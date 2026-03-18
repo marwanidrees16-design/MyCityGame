@@ -1,0 +1,20 @@
+body { 
+    margin: 0; 
+    overflow: hidden; 
+    background-color: #000; 
+}
+
+#ui {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    color: #00d4ff;
+    font-family: 'Segoe UI', sans-serif;
+    pointer-events: none; /* عشان ما يمنع اللمس */
+    text-shadow: 0 0 10px rgba(0,212,255,0.5);
+}
+
+canvas {
+    display: block;
+}
