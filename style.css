@@ -1,20 +1,9 @@
-body { 
-    margin: 0; 
-    overflow: hidden; 
-    background-color: #000; 
+body { background-color: #1a1a1a; color: white; font-family: sans-serif; margin: 0; }
+.player-container { width: 100%; position: sticky; top: 0; background: #000; }
+.video-js { width: 100% !important; height: 250px !important; }
+.channels-list { padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+button {
+    background: #e91e63; color: white; border: none; padding: 15px;
+    border-radius: 8px; font-weight: bold; cursor: pointer;
 }
-
-#ui {
-    position: absolute;
-    top: 20px;
-    width: 100%;
-    text-align: center;
-    color: #00d4ff;
-    font-family: 'Segoe UI', sans-serif;
-    pointer-events: none; /* عشان ما يمنع اللمس */
-    text-shadow: 0 0 10px rgba(0,212,255,0.5);
-}
-
-canvas {
-    display: block;
-}
+button:active { background: #ad1457; }
