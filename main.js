@@ -1,27 +1,25 @@
-var player = videojs('my-video');
-
-function playChannel(url, name) {
+function openStream(url) {
     const modal = document.getElementById('videoModal');
-    modal.style.display = "block";
+    const frame = document.getElementById('streamFrame');
     
-    player.src({
-        src: url,
-        type: 'application/x-mpegURL'
-    });
-    
-    player.play();
+    modal.style.display = "flex"; // استخدام flex للتوسيط
+    frame.src = url;
     document.body.style.overflow = "hidden";
 }
 
 function closeStream() {
     const modal = document.getElementById('videoModal');
+    const frame = document.getElementById('streamFrame');
+    
     modal.style.display = "none";
-    player.pause();
+    frame.src = ""; 
     document.body.style.overflow = "auto";
 }
 
+// إغلاق عند النقر خارج الفيديو
 window.onclick = function(event) {
-    if (event.target == document.getElementById('videoModal')) {
+    const modal = document.getElementById('videoModal');
+    if (event.target == modal) {
         closeStream();
     }
 }
