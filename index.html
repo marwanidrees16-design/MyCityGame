@@ -1,34 +1,60 @@
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95);
-    justify-content: center;
-    align-items: center;
-}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATELLITE PREMIUM | مروان</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
 
-.modal-content {
-    width: 90%;
-    max-width: 1100px;
-    height: 60vh;
-    position: relative;
-    border: 2px solid var(--primary);
-    border-radius: 20px;
-    overflow: hidden;
-}
+    <div class="background-overlay"></div>
 
-#streamFrame {
-    width: 100%;
-    height: 100%;
-}
+    <header>
+        <div class="logo">SATELLITE <span>PRO</span></div>
+        <p>البث المباشر المعتمد - تحديث 2026</p>
+    </header>
 
-.close {
-    position: absolute;
-    top: -50px;
-    right: 0;
-    font-size: 40px;
-    color: white;
-    cursor: pointer;
-}
+    <div class="container">
+        <div class="card" onclick="openStream('https://www.youtube.com/embed/live_stream?channel=UCfiwzLy-8yKzIbsmZTzxDWA&autoplay=1')">
+            <div class="card-badge">LIVE</div>
+            <div class="card-icon"><i class="fas fa-broadcast-tower"></i></div>
+            <div class="card-info">
+                <h3>قناة الجزيرة</h3>
+                <p>بث مباشر إخباري</p>
+            </div>
+            <button class="watch-btn">شاهد الآن</button>
+        </div>
+
+        <div class="card" onclick="openStream('https://www.youtube.com/embed/live_stream?channel=UC7SlsidX03N_x_9XzS70R0A&autoplay=1')">
+            <div class="card-badge">LIVE</div>
+            <div class="card-icon"><i class="fas fa-tv"></i></div>
+            <div class="card-info">
+                <h3>قناة رؤيا</h3>
+                <p>بث مباشر منوعات</p>
+            </div>
+            <button class="watch-btn">شاهد الآن</button>
+        </div>
+
+        <div class="card" onclick="openStream('https://www.youtube.com/embed/live_stream?channel=UC65AfLxGZMyYmU66-WpS_mQ&autoplay=1')">
+            <div class="card-badge">LIVE</div>
+            <div class="card-icon"><i class="fas fa-globe"></i></div>
+            <div class="card-info">
+                <h3>قناة العربية</h3>
+                <p>بث مباشر الحدث</p>
+            </div>
+            <button class="watch-btn">شاهد الآن</button>
+        </div>
+    </div>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeStream()">&times;</span>
+            <iframe id="streamFrame" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
