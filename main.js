@@ -1,8 +1,8 @@
 const channels = [
     { 
-        name: "قناة الجزيرة", 
+        name: "الجزيرة الإخبارية", 
         url: "https://live-hls-web-aje.akamaized.net/hls/live/2036571/aje/index.m3u8", 
-        logo: "https://www.aljazeera.net/wp-content/uploads/2023/12/Aj-logo-white-new.png" 
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Aljazeera_eng.svg/1200px-Aljazeera_eng.svg.png" 
     },
     { 
         name: "قناة رؤيا", 
@@ -10,7 +10,7 @@ const channels = [
         logo: "https://roya.tv/images/roya-logo.png" 
     },
     { 
-        name: "قناة TRT عربي", 
+        name: "TRT عربي", 
         url: "https://tv-trtarabi.medya.trt.com.tr/master.m3u8", 
         logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/TRT_Arabi_logo.svg/1200px-TRT_Arabi_logo.svg.png" 
     },
@@ -22,20 +22,19 @@ const channels = [
 ];
 
 const player = videojs('my-video');
-const listContainer = document.getElementById('channelsList');
+const list = document.getElementById('channelsList');
 
-channels.forEach((channel) => {
-    const card = document.createElement('div');
-    card.className = 'channel-card';
-    card.innerHTML = `
-        <img src="${channel.logo}">
-        <div>${channel.name}</div>
-    `;
-    card.onclick = () => {
-        player.src({ type: 'application/x-mpegURL', src: channel.url });
+channels.forEach(ch => {
+    const div = document.createElement('div');
+    div.className = 'channel-card';
+    div.innerHTML = `<img src="${ch.logo}"> <div>${ch.name}</div>`;
+    div.onclick = () => {
+        player.src({ type: 'application/x-mpegURL', src: ch.url });
         player.play();
-        document.getElementById('currentChannelName').innerText = channel.name;
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        document.getElementById('currentChannelName').innerText = "أنت تشاهد الآن: " + ch.name;
     };
-    listContainer.appendChild(card);
+    list.appendChild(div);
 });
+
+// تشغيل القناة الأولى تلقائياً
+player.src({ type: 'application/x-mpegURL', src: channels[0].url });
