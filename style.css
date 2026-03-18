@@ -1,72 +1,138 @@
+:root {
+    --primary: #00f2fe;
+    --secondary: #4facfe;
+    --dark-bg: #0a0b10;
+    --glass: rgba(255, 255, 255, 0.08);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-    background-color: #f0f2f5;
-    color: #333;
-    padding-bottom: 50px;
+    background-color: var(--dark-bg);
+    color: white;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.background-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, #1a2a6c 0%, #000 100%);
+    z-index: -1;
 }
 
 header {
-    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-    color: white;
     text-align: center;
-    padding: 40px 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 60px 20px;
 }
 
+.logo {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px var(--primary);
+    margin-bottom: 10px;
+}
+
+.logo span { color: var(--primary); }
+
 .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 25px;
-    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    width: 320px;
+    border-radius: 25px;
+    padding: 40px 20px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
 }
 
 .card:hover {
     transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 242, 254, 0.2);
+    border-color: var(--primary);
 }
 
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    height: 0;
-    background: #000;
-}
-
-.video-container iframe {
+.card-badge {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.card-content {
-    padding: 15px;
-}
-
-.card-content h3 {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-}
-
-.status {
-    color: #e74c3c;
-    font-size: 0.9rem;
+    top: 20px; right: 20px;
+    background: #ff4b2b;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
     font-weight: bold;
+    animation: blink 1.5s infinite;
 }
+
+.card-icon i {
+    font-size: 4.5rem;
+    margin-bottom: 25px;
+    background: linear-gradient(to bottom, #fff, var(--primary));
+    -webkit-background-clip: text; /* للمتصفحات مثل Chrome/Safari */
+    background-clip: text;         /* الخاصية القياسية - تم الإصلاح هنا */
+    -webkit-text-fill-color: transparent;
+}
+
+.card-info h3 { font-size: 1.5rem; margin-bottom: 10px; }
+.card-info p { opacity: 0.7; font-size: 0.9rem; }
+
+.watch-btn {
+    margin-top: 25px;
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.card:hover .watch-btn {
+    background: var(--primary);
+    color: #000;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.92);
+}
+
+.modal-content {
+    width: 95%;
+    max-width: 1000px;
+    height: 70vh;
+    margin: 10vh auto;
+    position: relative;
+}
+
+#streamFrame { width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+
+.close {
+    position: absolute;
+    top: -50px; left: 0;
+    font-size: 40px; color: white; cursor: pointer;
+}
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }

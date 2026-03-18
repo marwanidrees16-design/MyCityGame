@@ -3,45 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق القنوات الإخبارية</title>
+    <title>SATELLITE LIVE | منصة البث المباشر</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
+    <div class="background-overlay"></div>
+
     <header>
-        <h1>منصة البث المباشر</h1>
-        <p>شاهد قنواتك المفضلة بجودة عالية</p>
+        <div class="logo">SATELLITE <span>LIVE</span></div>
+        <p>بث مباشر من الأقمار الصناعية بجودة Ultra HD</p>
     </header>
 
-    <div class="container" id="channels-container">
-        <div class="card">
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/live_stream?channel=UCfiwzLy-8yKzIbsmZTzxDWA" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="card-content">
+    <div class="container">
+        <div class="card" onclick="openStream('https://www.aljazeera.net/live')">
+            <div class="card-badge">LIVE</div>
+            <div class="card-icon"><i class="fas fa-broadcast-tower"></i></div>
+            <div class="card-info">
                 <h3>قناة الجزيرة</h3>
-                <span class="status">مباشر • إخبارية</span>
+                <p>تغطية إخبارية على مدار الساعة</p>
             </div>
+            <button class="watch-btn">شاهد الآن</button>
         </div>
 
-        <div class="card">
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/live_stream?channel=UC7SlsidX03N_x_9XzS70R0A" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="card-content">
+        <div class="card" onclick="openStream('https://roya.tv/live-stream')">
+            <div class="card-badge">LIVE</div>
+            <div class="card-icon"><i class="fas fa-tv"></i></div>
+            <div class="card-info">
                 <h3>قناة رؤيا</h3>
-                <span class="status">مباشر • منوعات</span>
+                <p>الدراما والبرامج الأردنية</p>
             </div>
+            <button class="watch-btn">شاهد الآن</button>
         </div>
 
-        <div class="card">
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/live_stream?channel=UC65AfLxGZMyYmU66-WpS_mQ" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="card-content">
+        <div class="card" onclick="openStream('https://www.alarabiya.net/live-stream')">
+            <div class="card-badge">LIVE</div>
+            <div class="card-icon"><i class="fas fa-globe-americas"></i></div>
+            <div class="card-info">
                 <h3>قناة العربية</h3>
-                <span class="status">مباشر • إخبارية</span>
+                <p>الحدث من كل الزوايا</p>
             </div>
+            <button class="watch-btn">شاهد الآن</button>
+        </div>
+    </div>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeStream()">&times;</span>
+            <iframe id="streamFrame" src="" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
