@@ -1,59 +1,87 @@
+:root {
+    --primary: #ff0055;
+    --bg-dark: #0f0f13;
+    --card-bg: #1c1c24;
+}
+
 body {
-    background: #050505;
+    background-color: var(--bg-dark);
     color: white;
     font-family: 'Cairo', sans-serif;
     margin: 0;
-    padding-bottom: 50px;
+    padding: 0;
 }
 
-.header {
+.app-header {
+    padding: 15px;
     text-align: center;
-    padding: 20px;
-    background: linear-gradient(145deg, #1a1a1a, #000);
-    border-bottom: 2px solid #ff0055;
-}
-
-.main-container {
-    max-width: 1000px;
-    margin: auto;
-    padding: 10px;
-}
-
-.video-section {
     background: #000;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(255, 0, 85, 0.2);
+    border-bottom: 1px solid #222;
 }
 
-.channels-section {
-    margin-top: 25px;
+.app-header h1 { margin: 0; font-size: 1.5rem; letter-spacing: 2px; }
+.app-header span { color: var(--primary); }
+
+.player-container {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-.grid {
+.channel-title-bar {
+    padding: 10px 15px;
+    background: #16161d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.live-indicator {
+    background: var(--primary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink { 50% { opacity: 0.5; } }
+
+.content-area { padding: 20px 15px; }
+.section-title { font-size: 1.1rem; margin-bottom: 15px; border-right: 4px solid var(--primary); padding-right: 10px; }
+
+.cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(2, 1fr); /* بطاقتين في كل سطر للموبايل */
+    gap: 12px;
 }
 
 .channel-card {
-    background: #111;
-    border: 1px solid #222;
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.2s;
+    border: 1px solid #2a2a35;
 }
 
-.channel-card:hover {
-    background: #ff0055;
-    transform: scale(1.05);
-}
+.channel-card:active { transform: scale(0.95); background: #252530; }
 
 .channel-card img {
-    width: 100%;
+    width: 60px;
     height: 60px;
     object-fit: contain;
     margin-bottom: 10px;
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.5));
+}
+
+.channel-card div { font-size: 0.9rem; font-weight: bold; text-align: center; }
+
+/* للمتصفحات الكبيرة */
+@media (min-width: 768px) {
+    .cards-grid { grid-template-columns: repeat(4, 1fr); }
 }

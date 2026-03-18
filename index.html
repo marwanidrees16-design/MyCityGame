@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marwan TV | مروان تيفي</title>
+    <title>Marwan TV App</title>
     <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="header">
-        <h1>Marwan TV ✨</h1>
-        <p id="currentChannelName">اختر قناة للبث المباشر</p>
+    <div class="app-header">
+        <h1>MARWAN<span>TV</span></h1>
     </div>
 
-    <div class="main-container">
-        <div class="video-section">
-            <video id="my-video" class="video-js vjs-fluid vjs-big-play-centered" controls preload="auto"></video>
+    <div class="player-container">
+        <video id="my-video" class="video-js vjs-fluid vjs-big-play-centered" controls preload="auto" poster="https://web.archive.org/web/20210224103133if_/https://www.aljazeera.net/wp-content/uploads/2020/06/AJ-Generic-Share-Image.jpg">
+        </video>
+        <div class="channel-title-bar">
+            <div id="currentChannelName">اختر قناة للبدء</div>
+            <div class="live-indicator">LIVE</div>
         </div>
+    </div>
 
-        <div class="channels-section">
-            <div class="grid" id="channelsList">
-                </div>
-        </div>
+    <div class="content-area">
+        <h2 class="section-title">القنوات الإخبارية والعامة</h2>
+        <div class="cards-grid" id="channelsList">
+            </div>
     </div>
 
     <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
