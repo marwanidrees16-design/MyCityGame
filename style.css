@@ -1,36 +1,89 @@
+/* تصميم عصري وفخم (Modern Dark Mode) زي تطبيقات الـ IPTV */
 body {
-    background-color: #0f0f0f;
+    background-color: #0f0f12;
     color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Cairo', sans-serif;
     margin: 0;
-    padding-bottom: 50px;
+    overflow: hidden; /* يمنع تمرير الصفحة بالكامل */
 }
 
-.header {
-    text-align: center;
-    padding: 15px;
-    background: #e91e63;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* يملأ طول الشاشة */
 }
+
+/* قسم المشغل */
+.player-section {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background: #000;
+    z-index: 100;
+}
+
+.video-js {
+    width: 100% !important;
+}
+
+.player-info {
+    padding: 10px 15px;
+    background: #1a1a1f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e91e63; /* خط وردي فخم */
+}
+
+.player-info h3 { margin: 0; font-size: 1.1em; color: #fff; }
+
+.live-badge {
+    color: #e91e63;
+    font-weight: bold;
+    font-size: 0.9em;
+    padding: 2px 8px;
+    border: 1px solid #e91e63;
+    border-radius: 20px;
+}
+
+/* قسم القائمة */
+.list-section {
+    flex: 1; /* يأخذ باقي المساحة المتاحة */
+    overflow-y: auto; /* يجعل القائمة قابلة للتمرير */
+    padding-bottom: 20px;
+}
+
+.list-header {
+    padding: 15px;
+    background: #0f0f12;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.list-header h3 { margin: 0; color: #aaa; font-size: 1.2em; }
 
 .channels-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* عمودين للقنوات */
     gap: 15px;
-    padding: 20px;
+    padding: 0 15px;
 }
 
+/* تصميم بطاقة القناة */
 .channel-card {
-    background: #1e1e1e;
-    padding: 20px;
+    background: #1e1e24;
+    padding: 15px;
     text-align: center;
-    border-radius: 12px;
+    border-radius: 15px;
     border: 1px solid #333;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.2s, background 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .channel-card:active {
-    transform: scale(0.95);
-    background: #e91e63;
+    transform: scale(0.95); /* تأثير الضغط */
+    background: #e91e63; /* يتغير للوردي عند الضغط */
+    border-color: #e91e63;
 }
