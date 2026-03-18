@@ -1,12 +1,11 @@
-// روابط قنوات مباشرة ومجربة 100% (روابط HLS مستقرة)
 const channels = [
     { 
-        name: "قناة الجزيرة الإخبارية", 
+        name: "قناة الجزيرة", 
         url: "https://live-hls-web-aje.akamaized.net/hls/live/2036571/aje/index.m3u8", 
         logo: "https://www.aljazeera.net/wp-content/uploads/2023/12/Aj-logo-white-new.png" 
     },
     { 
-        name: "قناة رؤيا الأردنية", 
+        name: "قناة رؤيا", 
         url: "https://roya-live.ercdn.net/roya/roya.m3u8", 
         logo: "https://roya.tv/images/roya-logo.png" 
     },
@@ -22,33 +21,21 @@ const channels = [
     }
 ];
 
-const player = videojs('my-video', {
-    autoplay: true,
-    fluid: true,
-    preload: 'auto'
-});
-
+const player = videojs('my-video');
 const listContainer = document.getElementById('channelsList');
-const currentChannelName = document.getElementById('currentChannelName');
 
 channels.forEach((channel) => {
     const card = document.createElement('div');
     card.className = 'channel-card';
     card.innerHTML = `
-        <img src="${channel.logo}" alt="${channel.name}" style="height: 40px; margin-bottom: 8px; object-fit: contain;">
-        <div style="font-size: 0.9em; font-weight: bold;">${channel.name}</div>
+        <img src="${channel.logo}">
+        <div>${channel.name}</div>
     `;
-    
     card.onclick = () => {
         player.src({ type: 'application/x-mpegURL', src: channel.url });
         player.play();
-        currentChannelName.innerText = channel.name;
+        document.getElementById('currentChannelName').innerText = channel.name;
         window.scrollTo({top: 0, behavior: 'smooth'});
     };
-    
     listContainer.appendChild(card);
 });
-
-// تشغيل أول قناة (الجزيرة) عند الفتح
-player.src({ type: 'application/x-mpegURL', src: channels[0].url });
-currentChannelName.innerText = channels[0].name;
