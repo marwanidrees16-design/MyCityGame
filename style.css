@@ -1,34 +1,87 @@
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95);
-    justify-content: center;
+:root {
+    --main-color: #00d4ff;
+    --accent: #ff0055;
+    --bg-body: #0a0a0c;
+    --glass: rgba(255, 255, 255, 0.05);
+}
+
+body {
+    background-color: var(--bg-body);
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo { font-weight: 800; font-size: 1.4rem; letter-spacing: 1px; }
+.logo span { color: var(--main-color); }
+
+.app-content { padding: 20px 5%; }
+
+.video-container {
+    border-radius: 20px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid var(--glass);
+}
+
+.player-meta {
+    margin: 15px 0 30px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.modal-content {
-    width: 90%;
-    max-width: 1100px;
-    height: 60vh;
-    position: relative;
-    border: 2px solid var(--primary);
-    border-radius: 20px;
-    overflow: hidden;
+.quality-tag {
+    background: var(--glass);
+    padding: 4px 12px;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    border: 1px solid var(--main-color);
 }
 
-#streamFrame {
-    width: 100%;
-    height: 100%;
+.channels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
 }
 
-.close {
-    position: absolute;
-    top: -50px;
-    right: 0;
-    font-size: 40px;
-    color: white;
+.channel-card {
+    background: var(--glass);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 20px 10px;
+    text-align: center;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
+
+.channel-card:hover {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: var(--main-color);
+    transform: translateY(-5px);
+}
+
+.channel-card img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+}
+
+.channel-card div { font-size: 0.85rem; font-weight: 600; }
