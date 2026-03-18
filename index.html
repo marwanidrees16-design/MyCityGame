@@ -3,89 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marwan Game 2008 - Obstacles Edition</title>
-    <style>
-        body { margin: 0; overflow: hidden; background-color: #000; }
-        canvas { display: block; }
-        #ui { position: absolute; top: 10px; left: 10px; color: #00ff00; font-family: 'Courier New', Courier, monospace; font-weight: bold; text-shadow: 2px 2px #000; }
-    </style>
+    <title>Marwan TV</title>
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="ui">الأسهم للتحرك | تجنب المكعبات الحمراء! | جيل 2008</div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <div class="player-container">
+        <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="640" height="264">
+            <source src="رابط_القناة_هنا.m3u8" type="application/x-mpegURL">
+        </video>
+    </div>
+
+    <div class="channels-list">
+        <button onclick="changeChannel('رابط_قناة_1.m3u8')">قناة الرياضة</button>
+        <button onclick="changeChannel('رابط_قناة_2.m3u8')">قناة الأفلام</button>
+    </div>
+
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
     <script>
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x111122); // لون سماء ليلي
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        // إضاءة قوية
-        const light = new THREE.PointLight(0xffffff, 1.5);
-        light.position.set(0, 10, 0);
-        scene.add(light);
-        scene.add(new THREE.AmbientLight(0x404040, 0.5));
-
-        // أرضية الشارع مع خطوط
-        const grid = new THREE.GridHelper(200, 50, 0x444444, 0x222222);
-        scene.add(grid);
-
-        // إضافة عوائق عشوائية (مكعبات حمراء)
-        const obstacles = [];
-        const obsGeo = new THREE.BoxGeometry(2, 2, 2);
-        const obsMat = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-
-        for(let i=0; i<50; i++) {
-            const obs = new THREE.Mesh(obsGeo, obsMat);
-            obs.position.set(
-                Math.random() * 100 - 50, 
-                1, 
-                Math.random() * 100 - 50
-            );
-            scene.add(obs);
-            obstacles.push(obs);
+        var player = videojs('my-video');
+        function changeChannel(url) {
+            player.src({ type: 'application/x-mpegURL', src: url });
+            player.play();
         }
-
-        // سيارة مروان (لون ذهبي ملكي)
-        const carGroup = new THREE.Group();
-        const bodyMat = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.8, roughness: 0.2 });
-        const carBody = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.6, 2.2), bodyMat);
-        carGroup.add(carBody);
-        
-        const roof = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.5, 1.2), bodyMat);
-        roof.position.y = 0.5;
-        carGroup.add(roof);
-        
-        scene.add(carGroup);
-        carGroup.position.y = 0.3;
-
-        const keys = {};
-        window.onkeydown = (e) => keys[e.code] = true;
-        window.onkeyup = (e) => keys[e.code] = false;
-
-        function animate() {
-            requestAnimationFrame(animate);
-
-            if (keys['ArrowUp']) carGroup.translateZ(0.4); 
-            if (keys['ArrowDown']) carGroup.translateZ(-0.4);
-            if (keys['ArrowLeft']) carGroup.rotation.y += 0.07;
-            if (keys['ArrowRight']) carGroup.rotation.y -= 0.07;
-
-            // الكاميرا تتبع السيارة بسلاسة
-            const offset = new THREE.Vector3(0, 4, 8).applyMatrix4(carGroup.matrixWorld);
-            camera.position.lerp(offset, 0.1);
-            camera.lookAt(carGroup.position);
-
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        window.onresize = () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        };
     </script>
 </body>
 </html>
