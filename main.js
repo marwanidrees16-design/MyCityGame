@@ -1,22 +1,27 @@
-function openStream(url) {
+var player = videojs('my-video');
+
+function playChannel(url, name) {
     const modal = document.getElementById('videoModal');
-    const frame = document.getElementById('streamFrame');
-    
     modal.style.display = "block";
-    frame.src = url;
-    document.body.style.overflow = "hidden"; // منع التمرير عند فتح الفيديو
+    
+    player.src({
+        src: url,
+        type: 'application/x-mpegURL'
+    });
+    
+    player.play();
+    document.body.style.overflow = "hidden";
 }
 
 function closeStream() {
     const modal = document.getElementById('videoModal');
-    const frame = document.getElementById('streamFrame');
-    
     modal.style.display = "none";
-    frame.src = ""; // إيقاف الصوت والبث تماماً
+    player.pause();
     document.body.style.overflow = "auto";
 }
 
-// إغلاق النافذة عند الضغط على مفتاح Escape
-document.addEventListener('keydown', (e) => {
-    if (e.key === "Escape") closeStream();
-});
+window.onclick = function(event) {
+    if (event.target == document.getElementById('videoModal')) {
+        closeStream();
+    }
+}

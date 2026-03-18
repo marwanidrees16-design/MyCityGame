@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATELLITE LIVE | منصة البث المباشر</title>
+    <title>SATELLITE LIVE | مروان</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -13,48 +14,35 @@
 
     <header>
         <div class="logo">SATELLITE <span>LIVE</span></div>
-        <p>بث مباشر من الأقمار الصناعية بجودة Ultra HD</p>
+        <p>بث مباشر حقيقي - جودة الفضاء</p>
     </header>
 
     <div class="container">
-        <div class="card" onclick="openStream('https://www.aljazeera.net/live')">
+        <div class="card" onclick="playChannel('https://live-hls-web-aje.akamaized.net/hls/live/2036571/aje/index.m3u8', 'الجزيرة الإنجليزية')">
             <div class="card-badge">LIVE</div>
             <div class="card-icon"><i class="fas fa-broadcast-tower"></i></div>
-            <div class="card-info">
-                <h3>قناة الجزيرة</h3>
-                <p>تغطية إخبارية على مدار الساعة</p>
-            </div>
-            <button class="watch-btn">شاهد الآن</button>
+            <h3>الجزيرة</h3>
+            <button class="watch-btn">تشغيل الآن</button>
         </div>
 
-        <div class="card" onclick="openStream('https://roya.tv/live-stream')">
+        <div class="card" onclick="playChannel('https://rt-arab.akamaized.net/hls/live/2014725/rtarab/index.m3u8', 'RT Arabic')">
             <div class="card-badge">LIVE</div>
-            <div class="card-icon"><i class="fas fa-tv"></i></div>
-            <div class="card-info">
-                <h3>قناة رؤيا</h3>
-                <p>الدراما والبرامج الأردنية</p>
-            </div>
-            <button class="watch-btn">شاهد الآن</button>
-        </div>
-
-        <div class="card" onclick="openStream('https://www.alarabiya.net/live-stream')">
-            <div class="card-badge">LIVE</div>
-            <div class="card-icon"><i class="fas fa-globe-americas"></i></div>
-            <div class="card-info">
-                <h3>قناة العربية</h3>
-                <p>الحدث من كل الزوايا</p>
-            </div>
-            <button class="watch-btn">شاهد الآن</button>
+            <div class="card-icon"><i class="fas fa-globe"></i></div>
+            <h3>RT Arabic</h3>
+            <button class="watch-btn">تشغيل الآن</button>
         </div>
     </div>
 
     <div id="videoModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeStream()">&times;</span>
-            <iframe id="streamFrame" src="" frameborder="0" allowfullscreen></iframe>
+            <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="auto" height="auto" data-setup="{}">
+                <p class="vjs-no-js">المتصفح لا يدعم التشغيل</p>
+            </video>
         </div>
     </div>
 
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
