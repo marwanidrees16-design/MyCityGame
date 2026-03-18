@@ -1,26 +1,43 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشروع مروان - BMW Studio</title>
-    <style>
-        body { margin: 0; overflow: hidden; background: #000; }
-        #ui {
-            position: absolute; top: 20px; width: 100%;
-            text-align: center; color: #00ffff;
-            font-family: Arial, sans-serif; pointer-events: none;
-        }
-    </style>
+    <title>Marwan Game - Test</title>
+    <style>body { margin: 0; overflow: hidden; background: #000; }</style>
 </head>
 <body>
-    <div id="ui">
-        <h1>مشروع مروان 🚗</h1>
-        <p>استخدم الأسهم أو المس الشاشة للتحريك</p>
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
-    <script src="main.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // سيارة حمراء (مكعب)
+        const car = new THREE.Mesh(new THREE.BoxGeometry(1, 0.5, 2), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
+        scene.add(car);
+
+        // أرضية (شبكة خطوط) عشان تبين الحركة
+        scene.add(new THREE.GridHelper(100, 100));
+
+        camera.position.set(0, 5, 10);
+        camera.lookAt(car.position);
+
+        const keys = {};
+        window.onkeydown = (e) => keys[e.code] = true;
+        window.onkeyup = (e) => keys[e.code] = false;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (keys['ArrowUp']) car.translateZ(-0.2);
+            if (keys['ArrowDown']) car.translateZ(0.2);
+            if (keys['ArrowLeft']) car.rotation.y += 0.05;
+            if (keys['ArrowRight']) car.rotation.y -= 0.05;
+            camera.position.lerp(new THREE.Vector3(car.position.x, car.position.y+5, car.position.z+10), 0.1);
+            camera.lookAt(car.position);
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
 </body>
 </html>
