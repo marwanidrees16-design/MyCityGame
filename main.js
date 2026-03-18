@@ -1,55 +1,76 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
-// 1. إعداد المشهد
+// إعدادات المشهد والكاميرا
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x050505);
-scene.fog = new THREE.Fog(0x050505, 1, 50); // ضباب عشان يعطي عمق للمدينة
-
-// 2. الكاميرا (مجهزة للموبايل)
+scene.background = new THREE.Color(0x87ceeb); // لون سماء أزرق
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(8, 5, 15);
-
-// 3. المحرك (Renderer)
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio); // عشان تطلع الصورة حادة عالسماعة
 document.body.appendChild(renderer.domElement);
 
-// 4. التحكم باللمس (OrbitControls)
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
+// إضافة إضاءة
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(5, 10, 7.5).normalize();
+scene.add(light);
+scene.add(new THREE.AmbientLight(0x404040));
 
-// 5. الإضاءة (إضاءة نيون زرقاء)
-const light1 = new THREE.PointLight(0x00d4ff, 20, 100);
-light1.position.set(10, 10, 10);
-scene.add(light1);
+// إنشاء "السيارة" (المكعب)
+const geometry = new THREE.BoxGeometry(1, 0.5, 2);
+const material = new THREE.MeshPhongMaterial({ color: 0xff0000 }); // سيارة حمراء
+const car = new THREE.Mesh(geometry, material);
+scene.add(car);
 
-const ambient = new THREE.AmbientLight(0xffffff, 0.2);
-scene.add(ambient);
+// أرضية بسيطة
+const planeGeo = new THREE.PlaneGeometry(100, 100);
+const planeMat = new THREE.MeshPhongMaterial({ color: 0x999999 });
+const plane = new THREE.Mesh(planeGeo, planeMat);
+plane.rotation.x = -Math.PI / 2;
+plane.position.y = -0.25;
+scene.add(plane);
 
-// 6. إضافة أرضية "الشبكة" (Grid) - كأنها شارع مستقبلي
-const grid = new THREE.GridHelper(100, 40, 0x00d4ff, 0x222222);
-scene.add(grid);
+camera.position.set(0, 5, 10);
+camera.lookAt(car.position);
 
-// 7. إضافة "مكعب" مؤقت (مكان السيارة لحتى ترفع ملف الـ GLB)
-const geometry = new THREE.BoxGeometry(2, 1, 4);
-const material = new THREE.MeshStandardMaterial({ color: 0x00d4ff, metalness: 0.8, roughness: 0.2 });
-const carPlaceholder = new THREE.Mesh(geometry, material);
-carPlaceholder.position.y = 0.5;
-scene.add(carPlaceholder);
+// نظام الحركة
+const keys = {};
+let moveSpeed = 0.1;
 
-// 8. حلقة التحديث (Animation)
+// تحكم الكيبورد
+window.addEventListener('keydown', (e) => keys[e.code] = true);
+window.addEventListener('keyup', (e) => keys[e.code] = false);
+
+// تحكم اللمس للموبايل (Samsung A25)
+window.addEventListener('touchstart', (e) => {
+    const touchX = e.touches[0].clientX;
+    if (touchX < window.innerWidth / 2) keys['ArrowLeft'] = true;
+    else keys['ArrowRight'] = true;
+    keys['ArrowUp'] = true; // تحرك للأمام عند اللمس
+});
+window.addEventListener('touchend', () => {
+    keys['ArrowLeft'] = false;
+    keys['ArrowRight'] = false;
+    keys['ArrowUp'] = false;
+});
+
 function animate() {
     requestAnimationFrame(animate);
-    controls.update();
+
+    // منطق الحركة
+    if (keys['ArrowUp']) car.translateZ(-moveSpeed);
+    if (keys['ArrowDown']) car.translateZ(moveSpeed);
+    if (keys['ArrowLeft']) car.rotation.y += 0.05;
+    if (keys['ArrowRight']) car.rotation.y -= 0.05;
+
+    // الكاميرا تتبع السيارة
+    camera.position.lerp(new THREE.Vector3(car.position.x, car.position.y + 5, car.position.z + 10), 0.1);
+    camera.lookAt(car.position);
+
     renderer.render(scene, camera);
 }
-animate();
 
-// تحديث الحجم عند تدوير الموبايل
+// تعديل الحجم عند تدوير الموبايل
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+animate();
